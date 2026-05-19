@@ -4,6 +4,8 @@ import { StatusBar } from "expo-status-bar";
 import OnBoardingStack from "./src/navigator/OnboardingStack.navigator";
 import MainTab from "./src/navigator/MainTab.navigator";
 import { UserProvider, UserContext } from "./src/context/User.context";
+// Import SafeAreaProvider alongside SafeAreaView
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const AppNavigator = () => {
   const { isLoggedIn } = useContext(UserContext);
@@ -17,11 +19,18 @@ const AppNavigator = () => {
 
 export default function App() {
   return (
-    <>
-      <StatusBar style="light" />
+    <SafeAreaProvider
+      style={{
+        backgroundColor: "#ffffff",
+      }}
+    >
+      <StatusBar style="dark" />
       <UserProvider>
-        <AppNavigator />
+        {/* Wrap your navigator in SafeAreaView with flex: 1 */}
+        <SafeAreaView style={{ flex: 1 }}>
+          <AppNavigator />
+        </SafeAreaView>
       </UserProvider>
-    </>
+    </SafeAreaProvider>
   );
 }

@@ -5,7 +5,7 @@ import AuthStack from "./AuthStack.navigator";
 const stack = createNativeStackNavigator();
 const OnBoardingStack = () => {
   return (
-    <stack.Navigator>
+    <stack.Navigator screenOptions={{ headerShown: false }}>
       <stack.Screen name="onBoarding" component={Onboarding} />
       <stack.Screen name="authStack" component={AuthStack} />
     </stack.Navigator>
