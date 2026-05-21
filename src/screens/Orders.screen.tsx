@@ -95,11 +95,7 @@ const Orders = () => {
           <TouchableOpacity
             style={styles.browseButton}
             onPress={() => {
-              if (navigation.canGoBack()) {
-                navigation.popToTop();
-              } else {
-                navigation.navigate("homeStack");
-              }
+              navigation.navigate("homeStack");
             }}
           >
             <Text style={styles.browseText}>Browse Food</Text>

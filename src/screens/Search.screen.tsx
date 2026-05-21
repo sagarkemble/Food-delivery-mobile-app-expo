@@ -40,7 +40,7 @@ const Search = () => {
           restaurant.cuisine.toLowerCase().includes(lowerQuery);
 
         const matchMenu = restaurant.menu.some((menuItem) =>
-          menuItem.name.toLowerCase().includes(lowerQuery)
+          menuItem.name.toLowerCase().includes(lowerQuery),
         );
 
         return matchRestaurant || matchMenu;
@@ -78,7 +78,12 @@ const Search = () => {
             </Text>
             <View style={styles.ratingBadge}>
               <Text style={styles.ratingText}>{restaurant.rating}</Text>
-              <Ionicons name="star" size={10} color="#FFFFFF" style={{ marginLeft: 2 }} />
+              <Ionicons
+                name="star"
+                size={10}
+                color="#FFFFFF"
+                style={{ marginLeft: 2 }}
+              />
             </View>
           </View>
 
@@ -89,7 +94,9 @@ const Search = () => {
           <View style={styles.detailsRow}>
             <Text style={styles.detailText}>{restaurant.deliveryTime}</Text>
             <Text style={styles.dot}>•</Text>
-            <Text style={styles.detailText}>₹{restaurant.priceForTwo} for two</Text>
+            <Text style={styles.detailText}>
+              ₹{restaurant.priceForTwo} for two
+            </Text>
           </View>
 
           <View style={styles.vegContainer}>
@@ -131,7 +138,12 @@ const Search = () => {
 
       {/* Search Input */}
       <View style={styles.searchContainer}>
-        <Ionicons name="search-outline" size={20} color="#A0A5BA" style={styles.searchIcon} />
+        <Ionicons
+          name="search-outline"
+          size={20}
+          color="#A0A5BA"
+          style={styles.searchIcon}
+        />
         <TextInput
           style={styles.searchInput}
           placeholder="Search restaurants, cuisines, or dishes..."
@@ -142,7 +154,10 @@ const Search = () => {
           autoFocus={true}
         />
         {query.length > 0 && (
-          <TouchableOpacity onPress={() => setQuery("")} style={styles.clearBtn}>
+          <TouchableOpacity
+            onPress={() => setQuery("")}
+            style={styles.clearBtn}
+          >
             <Ionicons name="close-circle" size={20} color="#A0A5BA" />
           </TouchableOpacity>
         )}
@@ -191,10 +206,16 @@ const Search = () => {
         }
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Ionicons name="search" size={60} color="#F0F5FA" style={{ marginBottom: 16 }} />
+            <Ionicons
+              name="search"
+              size={60}
+              color="#F0F5FA"
+              style={{ marginBottom: 16 }}
+            />
             <Text style={styles.emptyTitle}>No results found</Text>
             <Text style={styles.emptySubtitle}>
-              We couldn't find anything matching "{query}". Try searching for another restaurant or cuisine.
+              We couldn't find anything matching "{query}". Try searching for
+              another restaurant or cuisine.
             </Text>
           </View>
         }

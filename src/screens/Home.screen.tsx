@@ -31,7 +31,6 @@ const Home = () => {
 
   const handleAvatar = () => {
     navigation.navigate("profileDrawer");
-    console.log("Avatar clicked");
   };
 
   const filteredRestaurants = restaurantData.filter((restaurant) => {
