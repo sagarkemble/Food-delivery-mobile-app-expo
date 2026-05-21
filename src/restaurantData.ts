@@ -46,7 +46,8 @@ export const restaurantData = [
       {
         id: "104",
         name: "Garlic Bread",
-        image: "https://images.unsplash.com/photo-1573140247632-f8fd74997d5c",
+        image:
+          "https://plus.unsplash.com/premium_photo-1711752902734-a36167479983?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         description: "Toasted garlic bread with herbs and butter.",
         price: 149,
         rating: 4.3,
