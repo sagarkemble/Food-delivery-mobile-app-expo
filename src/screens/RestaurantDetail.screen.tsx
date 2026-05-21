@@ -51,7 +51,6 @@ const RestaurantDetail = () => {
     <View style={styles.heroContainer}>
       <Image source={{ uri: restaurantDetails.image }} style={styles.heroImage} />
       
-      {/* Back Button */}
       <TouchableOpacity 
         style={styles.backButton} 
         onPress={() => navigation.goBack()}
@@ -60,7 +59,6 @@ const RestaurantDetail = () => {
         <Ionicons name="chevron-back" size={24} color="#181C2E" />
       </TouchableOpacity>
 
-      {/* Info Card */}
       <View style={styles.infoCard}>
         <View style={styles.cardHeader}>
           <Text style={styles.title}>{restaurantDetails.name}</Text>

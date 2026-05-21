@@ -18,7 +18,6 @@ const CustomDrawerContent = (props: any) => {
   return (
     <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <DrawerContentScrollView {...props} contentContainerStyle={{ paddingTop: 0 }}>
-        {/* Drawer Header */}
         <View style={styles.drawerHeader}>
           <Image
             source={{
@@ -35,7 +34,6 @@ const CustomDrawerContent = (props: any) => {
         </View>
       </DrawerContentScrollView>
 
-      {/* Logout Footer */}
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.logoutButton}

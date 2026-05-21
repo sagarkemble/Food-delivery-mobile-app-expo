@@ -24,14 +24,12 @@ const Search = () => {
   const getSearchResults = (): Restaurant[] => {
     let results = restaurantData;
 
-    // Apply Veg/Non-Veg Filter
     if (activeFilter === "Pure Veg") {
       results = results.filter((r) => r.isVeg === true);
     } else if (activeFilter === "Non Veg") {
       results = results.filter((r) => r.isVeg === false);
     }
 
-    // Apply Search Query Filter
     if (query.trim() !== "") {
       const lowerQuery = query.toLowerCase();
       results = results.filter((restaurant) => {
@@ -124,7 +122,6 @@ const Search = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backBtn}
@@ -136,7 +133,6 @@ const Search = () => {
         <View style={{ width: 40 }} />
       </View>
 
-      {/* Search Input */}
       <View style={styles.searchContainer}>
         <Ionicons
           name="search-outline"
@@ -163,7 +159,6 @@ const Search = () => {
         )}
       </View>
 
-      {/* Filter Chips */}
       <View style={styles.filtersWrapper}>
         <ScrollView
           horizontal
@@ -192,7 +187,6 @@ const Search = () => {
         </ScrollView>
       </View>
 
-      {/* Results List */}
       <FlatList
         data={searchResults}
         keyExtractor={(item) => item.id}

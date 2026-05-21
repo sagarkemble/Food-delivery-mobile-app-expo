@@ -56,7 +56,6 @@ const Cart = () => {
         />
 
         <View style={styles.info}>
-          {/* Top: name + close */}
           <View style={styles.topRow}>
             <Text style={styles.itemName} numberOfLines={2}>
               {item.name}
@@ -70,7 +69,6 @@ const Cart = () => {
             </TouchableOpacity>
           </View>
 
-          {/* Restaurant */}
           <View style={styles.restaurantRow}>
             <Ionicons name="storefront-outline" size={11} color="#A0A5BA" />
             <Text style={styles.restaurantName} numberOfLines={1}>
@@ -80,7 +78,6 @@ const Cart = () => {
 
           <View style={{ flex: 1 }} />
 
-          {/* Bottom: qty pill + price + buy */}
           <View style={styles.bottomRow}>
             <View style={styles.qtyPill}>
               <Text style={styles.qtyText}>× {qty}</Text>
@@ -210,7 +207,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
   },
 
-  /* Empty */
   emptyContainer: {
     flex: 1,
     justifyContent: "center",
@@ -251,7 +247,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 
-  /* List */
   listContent: {
     paddingHorizontal: 16,
     paddingTop: 4,
@@ -259,7 +254,6 @@ const styles = StyleSheet.create({
     gap: 14,
   },
 
-  /* Card */
   card: {
     flexDirection: "row",
     backgroundColor: "#FFFFFF",
@@ -350,7 +344,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 
-  /* Bottom bar */
   bottomBar: {
     flexDirection: "row",
     alignItems: "center",

@@ -73,20 +73,17 @@ const Onboarding = () => {
 
   const renderItem = ({ item }: { item: (typeof ONBOARDING_DATA)[0] }) => (
     <View style={styles.slide}>
-      {/* Image card */}
       <View style={styles.imageCard}>
         <Image
           source={{ uri: item.image }}
           style={styles.illustration}
           resizeMode="cover"
         />
-        {/* Tag pill overlapping bottom of image */}
         <View style={styles.tagPill}>
           <Text style={styles.tagText}>{item.tag}</Text>
         </View>
       </View>
 
-      {/* Text */}
       <View style={styles.textArea}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
@@ -101,7 +98,6 @@ const Onboarding = () => {
     >
       <StatusBar barStyle="dark-content" backgroundColor="#FFF8F3" />
 
-      {/* Header */}
       <View style={styles.header}>
         <View style={styles.brandRow}>
           <View style={styles.brandDot} />
@@ -115,7 +111,6 @@ const Onboarding = () => {
         </Pressable>
       </View>
 
-      {/* Slides */}
       <FlatList
         data={ONBOARDING_DATA}
         renderItem={renderItem}
@@ -135,9 +130,7 @@ const Onboarding = () => {
         style={styles.flatList}
       />
 
-      {/* Bottom: dots + CTA */}
       <View style={styles.bottom}>
-        {/* Dots */}
         <View style={styles.paginator}>
           {ONBOARDING_DATA.map((_, i) => {
             const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
@@ -160,7 +153,6 @@ const Onboarding = () => {
           })}
         </View>
 
-        {/* CTA row */}
         <View style={styles.ctaRow}>
           <View style={styles.stepLabel}>
             <Text style={styles.stepCurrent}>{currentIndex + 1}</Text>
@@ -193,7 +185,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF8F3",
   },
 
-  /* Header */
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -235,7 +226,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  /* Slide */
   slide: {
     width,
     flex: 1,
@@ -243,7 +233,6 @@ const styles = StyleSheet.create({
     paddingTop: height * 0.02,
   },
 
-  /* Image card */
   imageCard: {
     width: "100%",
     height: height * 0.42,
@@ -279,7 +268,6 @@ const styles = StyleSheet.create({
     color: "#181C2E",
   },
 
-  /* Text area */
   textArea: {
     marginTop: height * 0.055,
     paddingHorizontal: 4,
@@ -299,7 +287,6 @@ const styles = StyleSheet.create({
     maxWidth: 300,
   },
 
-  /* Bottom */
   bottom: {
     paddingHorizontal: 24,
     paddingBottom: 44,
@@ -318,7 +305,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FC8019",
   },
 
-  /* CTA Row */
   ctaRow: {
     flexDirection: "row",
     alignItems: "center",

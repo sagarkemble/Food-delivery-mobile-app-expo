@@ -31,7 +31,6 @@ const Orders = () => {
         />
 
         <View style={styles.info}>
-          {/* Top: name + status */}
           <View style={styles.topRow}>
             <Text style={styles.itemName} numberOfLines={2}>
               {item.name}
@@ -41,7 +40,6 @@ const Orders = () => {
             </View>
           </View>
 
-          {/* Restaurant */}
           <View style={styles.restaurantRow}>
             <Ionicons name="storefront-outline" size={12} color="#A0A5BA" />
             <Text style={styles.restaurantName} numberOfLines={1}>
@@ -52,7 +50,6 @@ const Orders = () => {
 
           <View style={{ flex: 1 }} />
 
-          {/* Bottom: qty + price */}
           <View style={styles.bottomRow}>
             <View style={styles.qtyPill}>
               <Text style={styles.qtyText}>Qty: {qty}</Text>
@@ -70,7 +67,6 @@ const Orders = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backBtn}
@@ -163,7 +159,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
   },
 
-  /* Empty State */
   emptyContainer: {
     flex: 1,
     justifyContent: "center",
@@ -204,7 +199,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 
-  /* List */
   listContent: {
     paddingHorizontal: 16,
     paddingTop: 4,
@@ -212,7 +206,6 @@ const styles = StyleSheet.create({
     gap: 14,
   },
 
-  /* Card */
   card: {
     flexDirection: "row",
     backgroundColor: "#FFFFFF",

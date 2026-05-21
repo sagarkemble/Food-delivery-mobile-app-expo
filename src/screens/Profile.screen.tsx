@@ -43,7 +43,6 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.hamburgerBtn}
@@ -59,7 +58,6 @@ const Profile = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Profile Info */}
         <View style={styles.profileCard}>
           <View style={styles.avatarContainer}>
             <Image
@@ -77,7 +75,6 @@ const Profile = () => {
           <Text style={styles.email}>{email || "guest@example.com"}</Text>
         </View>
 
-        {/* Stats */}
         <View style={styles.statsCard}>
           <View style={styles.statBox}>
             <View
@@ -116,7 +113,6 @@ const Profile = () => {
           </View>
         </View>
 
-        {/* Menu Items */}
         <View style={styles.menuContainer}>
           <Text style={styles.sectionTitle}>General</Text>
 

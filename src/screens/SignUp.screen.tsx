@@ -82,7 +82,6 @@ const SignUp = () => {
         bounces={false}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header Image Background */}
         <View style={styles.imageContainer}>
           <Image
             source={{ uri: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1000&auto=format&fit=crop" }}
@@ -92,7 +91,6 @@ const SignUp = () => {
           <View style={styles.imageOverlay} />
         </View>
 
-        {/* Content Card overlapping the image */}
         <View style={styles.contentCard}>
           <View>
             <View style={styles.headerTextContainer}>
@@ -101,7 +99,6 @@ const SignUp = () => {
             </View>
 
             <View style={styles.formContainer}>
-              {/* Name Input */}
               <View style={styles.inputWrapper}>
                 <Text style={styles.inputLabel}>FULL NAME</Text>
                 <TextInput
@@ -117,7 +114,6 @@ const SignUp = () => {
                 {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
               </View>
 
-              {/* Email Input */}
               <View style={styles.inputWrapper}>
                 <Text style={styles.inputLabel}>EMAIL ADDRESS</Text>
                 <TextInput
@@ -135,7 +131,6 @@ const SignUp = () => {
                 {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
               </View>
 
-              {/* Password Input */}
               <View style={styles.inputWrapper}>
                 <Text style={styles.inputLabel}>PASSWORD</Text>
                 <View style={styles.passwordContainer}>
@@ -167,7 +162,6 @@ const SignUp = () => {
               <Text style={styles.buttonText}>SIGN UP</Text>
             </Pressable>
 
-            {/* Sign In Link */}
             <View style={styles.signinContainer}>
               <Text style={styles.signinText}>Already have an account? </Text>
               <Pressable onPress={handleSignIn}>

@@ -17,7 +17,6 @@ const Help = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backBtn}
@@ -30,7 +29,6 @@ const Help = () => {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Search Bar */}
         <View style={styles.searchContainer}>
           <Ionicons name="search-outline" size={20} color="#A0A5BA" />
           <TextInput
@@ -40,7 +38,6 @@ const Help = () => {
           />
         </View>
 
-        {/* FAQ Section */}
         <Text style={styles.sectionTitle}>Frequently Asked Questions</Text>
         <View style={styles.faqContainer}>
           {[
@@ -56,7 +53,6 @@ const Help = () => {
           ))}
         </View>
 
-        {/* Contact Support */}
         <Text style={styles.sectionTitle}>Still need help?</Text>
         <View style={styles.contactContainer}>
           <TouchableOpacity style={styles.contactCard}>

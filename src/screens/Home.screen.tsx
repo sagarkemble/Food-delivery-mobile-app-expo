@@ -23,9 +23,7 @@ const Home = () => {
 
   const displayName = name ? name.split(" ")[0] : "Guest";
 
-  // 1. Update the handlePress function to accept an ID
   const handlePress = (id: string) => {
-    // Pass the ID as a route parameter
     navigation.navigate("restaurantDetail", { id });
   };
 
@@ -102,7 +100,6 @@ const Home = () => {
 
   const renderListHeader = () => (
     <View style={styles.listHeader}>
-      {/* Search Bar UI */}
       <TouchableOpacity
         style={styles.searchContainer}
         activeOpacity={0.8}
@@ -119,7 +116,6 @@ const Home = () => {
         </Text>
       </TouchableOpacity>
 
-      {/* Visual Filters Row */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -152,7 +148,6 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header Section */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <TouchableOpacity onPress={handleAvatar}>
