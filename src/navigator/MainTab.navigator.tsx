@@ -29,14 +29,7 @@ export const MainTab = () => {
         tabBarActiveTintColor: "#FC8019",
         tabBarInactiveTintColor: "#686B78",
         headerShown: false,
-        tabBarStyle: {
-          backgroundColor: "#FFFFFF",
-          borderTopWidth: 1,
-          borderTopColor: "#E8E8E8",
-          paddingBottom: 6,
-          paddingTop: 60,
-          // height: 60,
-        },
+
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "600",

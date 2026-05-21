@@ -15,7 +15,7 @@ import useUserContext from "../hooks/useContext.hook";
 
 const Profile = () => {
   const navigation = useNavigation<any>();
-  const { name, email, cartItems, orders } = useUserContext();
+  const { name, email, cartItems, orders, setIsLoggedIn } = useUserContext();
 
   const menuItems = [
     {
@@ -36,7 +36,7 @@ const Profile = () => {
     {
       title: "Logout",
       icon: "log-out-outline",
-      onPress: () => console.log("Logout"),
+      onPress: () => setIsLoggedIn(false),
       color: "#E43B4F",
     },
   ];
@@ -80,27 +80,35 @@ const Profile = () => {
         {/* Stats */}
         <View style={styles.statsCard}>
           <View style={styles.statBox}>
-            <View style={[styles.statIconCircle, { backgroundColor: "#FFF3E8" }]}>
+            <View
+              style={[styles.statIconCircle, { backgroundColor: "#FFF3E8" }]}
+            >
               <Ionicons name="receipt-outline" size={24} color="#FC8019" />
             </View>
             <Text style={styles.statNumber}>{orders ? orders.length : 0}</Text>
             <Text style={styles.statLabel}>Orders</Text>
           </View>
-          
+
           <View style={styles.statDivider} />
-          
+
           <View style={styles.statBox}>
-            <View style={[styles.statIconCircle, { backgroundColor: "#E8F5E9" }]}>
+            <View
+              style={[styles.statIconCircle, { backgroundColor: "#E8F5E9" }]}
+            >
               <Ionicons name="cart-outline" size={24} color="#0F8A65" />
             </View>
-            <Text style={styles.statNumber}>{cartItems ? cartItems.length : 0}</Text>
+            <Text style={styles.statNumber}>
+              {cartItems ? cartItems.length : 0}
+            </Text>
             <Text style={styles.statLabel}>Cart</Text>
           </View>
-          
+
           <View style={styles.statDivider} />
-          
+
           <View style={styles.statBox}>
-            <View style={[styles.statIconCircle, { backgroundColor: "#E3F2FD" }]}>
+            <View
+              style={[styles.statIconCircle, { backgroundColor: "#E3F2FD" }]}
+            >
               <Ionicons name="location-outline" size={24} color="#4A90E2" />
             </View>
             <Text style={styles.statNumber}>2</Text>
@@ -111,7 +119,7 @@ const Profile = () => {
         {/* Menu Items */}
         <View style={styles.menuContainer}>
           <Text style={styles.sectionTitle}>General</Text>
-          
+
           <View style={styles.menuCard}>
             {menuItems.map((item, index) => (
               <React.Fragment key={index}>
@@ -123,7 +131,11 @@ const Profile = () => {
                   <View
                     style={[
                       styles.menuIconBox,
-                      { backgroundColor: item.color ? `${item.color}15` : "#F0F5FA" },
+                      {
+                        backgroundColor: item.color
+                          ? `${item.color}15`
+                          : "#F0F5FA",
+                      },
                     ]}
                   >
                     <Ionicons

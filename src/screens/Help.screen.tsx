@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  StatusBar,
+  ScrollView,
+  TextInput,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,15 +29,54 @@ const Help = () => {
         <View style={{ width: 40 }} />
       </View>
 
-      <View style={styles.content}>
-        <View style={styles.iconCircle}>
-          <Ionicons name="help-buoy-outline" size={60} color="#A0A5BA" />
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Search Bar */}
+        <View style={styles.searchContainer}>
+          <Ionicons name="search-outline" size={20} color="#A0A5BA" />
+          <TextInput
+            placeholder="Search for topics or questions"
+            placeholderTextColor="#A0A5BA"
+            style={styles.searchInput}
+          />
         </View>
-        <Text style={styles.title}>How can we help?</Text>
-        <Text style={styles.subtitle}>
-          This is a placeholder for the Help Center. You can add FAQs, chat support, or contact forms here.
-        </Text>
-      </View>
+
+        {/* FAQ Section */}
+        <Text style={styles.sectionTitle}>Frequently Asked Questions</Text>
+        <View style={styles.faqContainer}>
+          {[
+            "How to track my order?",
+            "Can I cancel my order?",
+            "Payment methods accepted",
+            "Refund policy",
+          ].map((item, index) => (
+            <TouchableOpacity key={index} style={styles.faqItem}>
+              <Text style={styles.faqText}>{item}</Text>
+              <Ionicons name="chevron-down-outline" size={20} color="#A0A5BA" />
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {/* Contact Support */}
+        <Text style={styles.sectionTitle}>Still need help?</Text>
+        <View style={styles.contactContainer}>
+          <TouchableOpacity style={styles.contactCard}>
+            <Ionicons name="chatbubbles-outline" size={28} color="#FF6C44" />
+            <View style={styles.contactTextContainer}>
+              <Text style={styles.contactTitle}>Live Chat</Text>
+              <Text style={styles.contactSub}>Usually responds in 5 mins</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.contactCard}>
+            <Ionicons name="mail-outline" size={28} color="#FF6C44" />
+            <View style={styles.contactTextContainer}>
+              <Text style={styles.contactTitle}>Send an Email</Text>
+              <Text style={styles.contactSub}>support@fooddelivery.com</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{ height: 40 }} />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -69,30 +116,85 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 32,
-    marginTop: -40,
+    paddingHorizontal: 20,
+    marginTop: 10,
   },
-  iconCircle: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: "#F0F5FA",
-    justifyContent: "center",
+  searchContainer: {
+    flexDirection: "row",
     alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    paddingHorizontal: 16,
     marginBottom: 24,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
   },
-  title: {
-    fontSize: 22,
+  searchInput: {
+    flex: 1,
+    marginLeft: 12,
+    fontSize: 15,
+    color: "#181C2E",
+  },
+  sectionTitle: {
+    fontSize: 18,
     fontWeight: "800",
     color: "#181C2E",
-    marginBottom: 12,
+    marginBottom: 16,
   },
-  subtitle: {
+  faqContainer: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 28,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  faqItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F0F5FA",
+  },
+  faqText: {
     fontSize: 15,
+    color: "#32343E",
+    fontWeight: "500",
+  },
+  contactContainer: {
+    paddingBottom: 20,
+  },
+  contactCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  contactTextContainer: {
+    marginLeft: 16,
+  },
+  contactTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#181C2E",
+    marginBottom: 4,
+  },
+  contactSub: {
+    fontSize: 13,
     color: "#A0A5BA",
-    textAlign: "center",
-    lineHeight: 22,
   },
 });

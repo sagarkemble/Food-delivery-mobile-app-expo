@@ -9,9 +9,9 @@ import {
   Pressable,
   Animated,
   StatusBar,
-  SafeAreaView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const { width, height } = Dimensions.get("window");
 
@@ -23,6 +23,7 @@ const ONBOARDING_DATA = [
       "We make it simple to find the food you crave. Enter your address and let us do the rest.",
     image:
       "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1000&auto=format&fit=crop",
+    tag: "🍕 1000+ Restaurants",
   },
   {
     id: "2",
@@ -31,6 +32,7 @@ const ONBOARDING_DATA = [
       "Hot and fresh food delivered directly to your doorstep in minutes, guaranteed.",
     image:
       "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1000&auto=format&fit=crop",
+    tag: "⚡ Avg. 30 min delivery",
   },
   {
     id: "3",
@@ -39,10 +41,11 @@ const ONBOARDING_DATA = [
       "We make food ordering fast, simple and free no matter if you order online or cash.",
     image:
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1000&auto=format&fit=crop",
+    tag: "🔒 100% Secure",
   },
 ];
 
-const CIRCLE_SIZE = 64;
+const CIRCLE_SIZE = 56;
 
 const Onboarding = () => {
   const navigation = useNavigation<any>();
@@ -70,14 +73,17 @@ const Onboarding = () => {
 
   const renderItem = ({ item }: { item: (typeof ONBOARDING_DATA)[0] }) => (
     <View style={styles.slide}>
-      {/* Illustration area */}
-      <View style={styles.illustrationArea}>
-        <View style={styles.circleBackdrop} />
+      {/* Image card */}
+      <View style={styles.imageCard}>
         <Image
           source={{ uri: item.image }}
           style={styles.illustration}
           resizeMode="cover"
         />
+        {/* Tag pill overlapping bottom of image */}
+        <View style={styles.tagPill}>
+          <Text style={styles.tagText}>{item.tag}</Text>
+        </View>
       </View>
 
       {/* Text */}
@@ -89,9 +95,18 @@ const Onboarding = () => {
   );
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      {/* Skip top-right */}
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "#FFFFFF" }}
+      edges={["top", "bottom"]}
+    >
+      <StatusBar barStyle="dark-content" backgroundColor="#FFF8F3" />
+
+      {/* Header */}
       <View style={styles.header}>
+        <View style={styles.brandRow}>
+          <View style={styles.brandDot} />
+          <Text style={styles.brandName}>FoodRush</Text>
+        </View>
         <Pressable
           onPress={() => navigation.navigate("authStack")}
           style={({ pressed }) => [styles.skipBtn, pressed && { opacity: 0.5 }]}
@@ -120,19 +135,20 @@ const Onboarding = () => {
         style={styles.flatList}
       />
 
-      {/* Dots + circular next button */}
+      {/* Bottom: dots + CTA */}
       <View style={styles.bottom}>
+        {/* Dots */}
         <View style={styles.paginator}>
           {ONBOARDING_DATA.map((_, i) => {
             const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
             const dotWidth = scrollX.interpolate({
               inputRange,
-              outputRange: [8, 20, 8],
+              outputRange: [8, 24, 8],
               extrapolate: "clamp",
             });
             const opacity = scrollX.interpolate({
               inputRange,
-              outputRange: [0.25, 1, 0.25],
+              outputRange: [0.3, 1, 0.3],
               extrapolate: "clamp",
             });
             return (
@@ -144,15 +160,26 @@ const Onboarding = () => {
           })}
         </View>
 
-        <Pressable
-          onPress={scrollToNext}
-          style={({ pressed }) => [
-            styles.nextBtn,
-            pressed && styles.nextBtnPressed,
-          ]}
-        >
-          <Text style={styles.nextBtnLabel}>{isLast ? "✓" : "›"}</Text>
-        </Pressable>
+        {/* CTA row */}
+        <View style={styles.ctaRow}>
+          <View style={styles.stepLabel}>
+            <Text style={styles.stepCurrent}>{currentIndex + 1}</Text>
+            <Text style={styles.stepTotal}>/{ONBOARDING_DATA.length}</Text>
+          </View>
+
+          <Pressable
+            onPress={scrollToNext}
+            style={({ pressed }) => [
+              styles.nextBtn,
+              isLast && styles.nextBtnFull,
+              pressed && styles.nextBtnPressed,
+            ]}
+          >
+            <Text style={styles.nextBtnLabel}>
+              {isLast ? "Get Started →" : "Next →"}
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -166,20 +193,41 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF8F3",
   },
 
+  /* Header */
   header: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 24,
-    paddingTop: 8,
-    paddingBottom: 4,
+    paddingTop: 12,
+    paddingBottom: 8,
+  },
+  brandRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  brandDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: "#FC8019",
+  },
+  brandName: {
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#181C2E",
+    letterSpacing: -0.3,
   },
   skipBtn: {
     paddingVertical: 6,
-    paddingHorizontal: 4,
+    paddingHorizontal: 12,
+    backgroundColor: "#F0EBE3",
+    borderRadius: 20,
   },
   skipText: {
-    fontSize: 15,
-    fontWeight: "600",
+    fontSize: 13,
+    fontWeight: "700",
     color: "#FC8019",
   },
 
@@ -187,64 +235,81 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  /* Slide */
   slide: {
     width,
     flex: 1,
-    alignItems: "center",
-    paddingHorizontal: 32,
+    paddingHorizontal: 24,
+    paddingTop: height * 0.02,
   },
 
-  illustrationArea: {
-    width: width * 0.78,
-    height: height * 0.38,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: height * 0.02,
-  },
-  circleBackdrop: {
-    position: "absolute",
-    width: width * 0.68,
-    height: width * 0.68,
-    borderRadius: (width * 0.68) / 2,
-    backgroundColor: "#FFE8D6",
+  /* Image card */
+  imageCard: {
+    width: "100%",
+    height: height * 0.42,
+    borderRadius: 28,
+    overflow: "visible",
+    position: "relative",
   },
   illustration: {
-    width: width * 0.6,
-    height: width * 0.6,
-    borderRadius: (width * 0.6) / 2,
+    width: "100%",
+    height: "100%",
+    borderRadius: 28,
+    backgroundColor: "#E8E8E8",
+  },
+  tagPill: {
+    position: "absolute",
+    bottom: -14,
+    alignSelf: "center",
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+    borderRadius: 99,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 5,
+    borderWidth: 1,
+    borderColor: "#F5EFE9",
+  },
+  tagText: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#181C2E",
   },
 
+  /* Text area */
   textArea: {
-    marginTop: height * 0.045,
-    alignItems: "center",
-    paddingHorizontal: 8,
+    marginTop: height * 0.055,
+    paddingHorizontal: 4,
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: "800",
-    color: "#1C1C1C",
-    textAlign: "center",
-    marginBottom: 14,
-    letterSpacing: -0.3,
+    color: "#181C2E",
+    marginBottom: 12,
+    letterSpacing: -0.5,
+    lineHeight: 38,
   },
   description: {
     fontSize: 15,
     color: "#686B78",
-    textAlign: "center",
     lineHeight: 24,
-    maxWidth: 280,
+    maxWidth: 300,
   },
 
+  /* Bottom */
   bottom: {
-    alignItems: "center",
+    paddingHorizontal: 24,
     paddingBottom: 44,
-    paddingTop: 20,
-    gap: 20,
+    paddingTop: 24,
+    gap: 24,
   },
   paginator: {
     flexDirection: "row",
     alignItems: "center",
-    height: 10,
+    height: 8,
     gap: 6,
   },
   dot: {
@@ -253,30 +318,49 @@ const styles = StyleSheet.create({
     backgroundColor: "#FC8019",
   },
 
-  nextBtn: {
-    width: CIRCLE_SIZE,
-    height: CIRCLE_SIZE,
-    borderRadius: CIRCLE_SIZE / 2,
-    borderWidth: 1.5,
-    borderColor: "#FC8019",
+  /* CTA Row */
+  ctaRow: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FFFFFF",
+    justifyContent: "space-between",
+  },
+  stepLabel: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    gap: 2,
+  },
+  stepCurrent: {
+    fontSize: 28,
+    fontWeight: "800",
+    color: "#181C2E",
+  },
+  stepTotal: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#A0A5BA",
+  },
+  nextBtn: {
+    backgroundColor: "#FC8019",
+    paddingHorizontal: 32,
+    paddingVertical: 16,
+    borderRadius: 16,
     shadowColor: "#FC8019",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 4,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  nextBtnFull: {
+    paddingHorizontal: 40,
   },
   nextBtnPressed: {
-    backgroundColor: "#FC8019",
-    transform: [{ scale: 0.95 }],
+    backgroundColor: "#E36B00",
+    transform: [{ scale: 0.97 }],
   },
   nextBtnLabel: {
-    fontSize: 32,
-    color: "#FC8019",
-    fontWeight: "300",
-    lineHeight: 38,
-    marginTop: 2,
+    fontSize: 15,
+    fontWeight: "800",
+    color: "#FFFFFF",
+    letterSpacing: 0.3,
   },
 });

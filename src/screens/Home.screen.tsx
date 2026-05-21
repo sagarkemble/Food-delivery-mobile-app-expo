@@ -20,13 +20,18 @@ const Home = () => {
   const navigation = useNavigation<any>();
   const { name } = useUserContext();
   const [activeFilter, setActiveFilter] = useState("Both");
-  
+
   const displayName = name ? name.split(" ")[0] : "Guest";
 
   // 1. Update the handlePress function to accept an ID
   const handlePress = (id: string) => {
     // Pass the ID as a route parameter
     navigation.navigate("restaurantDetail", { id });
+  };
+
+  const handleAvatar = () => {
+    navigation.navigate("profileDrawer");
+    console.log("Avatar clicked");
   };
 
   const filteredRestaurants = restaurantData.filter((restaurant) => {
@@ -43,31 +48,53 @@ const Home = () => {
         onPress={() => handlePress(restaurant.id)}
         activeOpacity={0.9}
       >
-        <Image source={{ uri: restaurant.image }} style={styles.cardImage} resizeMode="cover" />
-        
+        <Image
+          source={{ uri: restaurant.image }}
+          style={styles.cardImage}
+          resizeMode="cover"
+        />
+
         <View style={styles.cardContent}>
           <View style={styles.cardHeader}>
-            <Text style={styles.restaurantName} numberOfLines={1}>{restaurant.name}</Text>
+            <Text style={styles.restaurantName} numberOfLines={1}>
+              {restaurant.name}
+            </Text>
             <View style={styles.ratingContainer}>
               <Text style={styles.ratingText}>★ {restaurant.rating}</Text>
             </View>
           </View>
-          
-          <Text style={styles.cuisineText} numberOfLines={1}>{restaurant.cuisine}</Text>
-          
+
+          <Text style={styles.cuisineText} numberOfLines={1}>
+            {restaurant.cuisine}
+          </Text>
+
           <View style={styles.detailsRow}>
             <Text style={styles.detailText}>{restaurant.deliveryTime}</Text>
             <Text style={styles.dot}>•</Text>
             <Text style={styles.detailText}>{restaurant.distance}</Text>
             <Text style={styles.dot}>•</Text>
-            <Text style={styles.detailText}>₹{restaurant.priceForTwo} for two</Text>
+            <Text style={styles.detailText}>
+              ₹{restaurant.priceForTwo} for two
+            </Text>
           </View>
 
           <View style={styles.vegContainer}>
-            <View style={[styles.vegIcon, { borderColor: restaurant.isVeg ? "#0F8A65" : "#E43B4F" }]}>
-              <View style={[styles.vegDot, { backgroundColor: restaurant.isVeg ? "#0F8A65" : "#E43B4F" }]} />
+            <View
+              style={[
+                styles.vegIcon,
+                { borderColor: restaurant.isVeg ? "#0F8A65" : "#E43B4F" },
+              ]}
+            >
+              <View
+                style={[
+                  styles.vegDot,
+                  { backgroundColor: restaurant.isVeg ? "#0F8A65" : "#E43B4F" },
+                ]}
+              />
             </View>
-            <Text style={styles.vegText}>{restaurant.isVeg ? "PURE VEG" : "NON VEG"}</Text>
+            <Text style={styles.vegText}>
+              {restaurant.isVeg ? "PURE VEG" : "NON VEG"}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -77,31 +104,40 @@ const Home = () => {
   const renderListHeader = () => (
     <View style={styles.listHeader}>
       {/* Search Bar UI */}
-      <TouchableOpacity 
-        style={styles.searchContainer} 
+      <TouchableOpacity
+        style={styles.searchContainer}
         activeOpacity={0.8}
         onPress={() => navigation.navigate("search")}
       >
-        <Ionicons name="search-outline" size={20} color="#A0A5BA" style={styles.searchIcon} />
-        <Text style={styles.searchText}>Search for restaurants, items or more</Text>
+        <Ionicons
+          name="search-outline"
+          size={20}
+          color="#A0A5BA"
+          style={styles.searchIcon}
+        />
+        <Text style={styles.searchText}>
+          Search for restaurants, items or more
+        </Text>
       </TouchableOpacity>
 
       {/* Visual Filters Row */}
-      <ScrollView 
-        horizontal 
-        showsHorizontalScrollIndicator={false} 
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.filtersScroll}
         style={styles.filtersWrapper}
       >
         {["Both", "Pure Veg", "Non Veg"].map((filter, index) => {
           const isActive = activeFilter === filter;
           return (
-            <TouchableOpacity 
-              key={index} 
+            <TouchableOpacity
+              key={index}
               style={[styles.filterChip, isActive && styles.filterChipActive]}
               onPress={() => setActiveFilter(filter)}
             >
-              <Text style={[styles.filterText, isActive && styles.filterTextActive]}>
+              <Text
+                style={[styles.filterText, isActive && styles.filterTextActive]}
+              >
                 {filter}
               </Text>
             </TouchableOpacity>
@@ -119,17 +155,27 @@ const Home = () => {
     <SafeAreaView style={styles.container}>
       {/* Header Section */}
       <View style={styles.header}>
-        <View>
-          <Text style={styles.greetingText}>Good morning,</Text>
-          <Text style={styles.userNameText}>{displayName} 👋</Text>
+        <View style={styles.headerLeft}>
+          <TouchableOpacity onPress={handleAvatar}>
+            <Image
+              source={{
+                uri: "https://ik.imagekit.io/yn9gz2n2g/Avatars/Common/common154.png?updatedAt=1754971126428",
+              }}
+              style={styles.avatar}
+            />
+          </TouchableOpacity>
+          <View>
+            <Text style={styles.greetingText}>Good morning,</Text>
+            <Text style={styles.userNameText}>{displayName}</Text>
+          </View>
         </View>
-        
+
         <TouchableOpacity style={styles.bellIconContainer}>
           <Ionicons name="notifications-outline" size={24} color="#181C2E" />
           <View style={styles.notificationDot} />
         </TouchableOpacity>
       </View>
-      
+
       <FlatList
         data={filteredRestaurants}
         renderItem={({ item }) => renderCard(item)}
@@ -157,18 +203,30 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     backgroundColor: "#FFFFFF",
   },
+  headerLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  avatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    marginRight: 12,
+    backgroundColor: "#F0F5FA",
+  },
   greetingText: {
     fontSize: 13,
     color: "#686B78",
     fontWeight: "600",
     textTransform: "uppercase",
     letterSpacing: 0.5,
-    marginBottom: 2,
+    marginBottom: 0,
   },
   userNameText: {
     fontSize: 22,
     fontWeight: "800",
     color: "#181C2E",
+    marginTop: -4,
   },
   bellIconContainer: {
     width: 44,

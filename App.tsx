@@ -26,10 +26,7 @@ export default function App() {
     >
       <StatusBar style="dark" />
       <UserProvider>
-        {/* Wrap your navigator in SafeAreaView with flex: 1 */}
-        <SafeAreaView style={{ flex: 1 }}>
-          <AppNavigator />
-        </SafeAreaView>
+        <AppNavigator />
       </UserProvider>
     </SafeAreaProvider>
   );

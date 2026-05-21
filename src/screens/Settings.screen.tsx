@@ -1,11 +1,62 @@
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Switch,
+} from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import useUserContext from "../hooks/useContext.hook";
 
 const Settings = () => {
   const navigation = useNavigation<any>();
+  const [pushEnabled, setPushEnabled] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+  const { setIsLoggedIn } = useUserContext();
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
+  const renderItem = (
+    icon: any,
+    title: string,
+    type: "arrow" | "toggle" | "none" = "arrow",
+    value?: boolean,
+    onValueChange?: (val: boolean) => void,
+    textColor: string = "#181C2E",
+    onPress?: () => void,
+  ) => {
+    return (
+      <TouchableOpacity
+        style={styles.settingItem}
+        activeOpacity={type === "toggle" ? 1 : 0.7}
+        onPress={onPress}
+      >
+        <View style={styles.itemLeft}>
+          <View style={styles.iconContainer}>
+            <Ionicons name={icon} size={20} color="#686B78" />
+          </View>
+          <Text style={[styles.itemTitle, { color: textColor }]}>{title}</Text>
+        </View>
+
+        {type === "arrow" && (
+          <Ionicons name="chevron-forward" size={20} color="#A0A5BA" />
+        )}
+        {type === "toggle" && (
+          <Switch
+            value={value}
+            onValueChange={onValueChange}
+            trackColor={{ false: "#E5E7EB", true: "#FC8019" }}
+            thumbColor={"#FFFFFF"}
+          />
+        )}
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -21,15 +72,57 @@ const Settings = () => {
         <View style={{ width: 40 }} />
       </View>
 
-      <View style={styles.content}>
-        <View style={styles.iconCircle}>
-          <Ionicons name="settings-outline" size={60} color="#A0A5BA" />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
+        <Text style={styles.sectionTitle}>Account</Text>
+        <View style={styles.card}>
+          {renderItem("person-outline", "Personal Information")}
+          <View style={styles.divider} />
+          {renderItem("card-outline", "Payment Methods")}
+          <View style={styles.divider} />
+          {renderItem("location-outline", "Saved Addresses")}
         </View>
-        <Text style={styles.title}>App Settings</Text>
-        <Text style={styles.subtitle}>
-          This is a placeholder for Settings. You can add toggles for notifications, dark mode, etc., here.
-        </Text>
-      </View>
+
+        <Text style={styles.sectionTitle}>Preferences</Text>
+        <View style={styles.card}>
+          {renderItem(
+            "notifications-outline",
+            "Push Notifications",
+            "toggle",
+            pushEnabled,
+            setPushEnabled,
+          )}
+          <View style={styles.divider} />
+          {renderItem(
+            "moon-outline",
+            "Dark Mode",
+            "toggle",
+            darkMode,
+            setDarkMode,
+          )}
+          <View style={styles.divider} />
+          {renderItem("globe-outline", "Language")}
+        </View>
+
+        <Text style={styles.sectionTitle}>Support & More</Text>
+        <View style={styles.card}>
+          {renderItem("help-circle-outline", "Help Center")}
+          <View style={styles.divider} />
+          {renderItem("document-text-outline", "Terms & Conditions")}
+          <View style={styles.divider} />
+          {renderItem(
+            "log-out-outline",
+            "Log Out",
+            "none",
+            undefined,
+            undefined,
+            "#FF4B4B",
+            handleLogout,
+          )}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -67,32 +160,56 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     color: "#181C2E",
   },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 32,
-    marginTop: -40,
+  scrollContent: {
+    padding: 20,
+    paddingBottom: 40,
   },
-  iconCircle: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+  sectionTitle: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#A0A5BA",
+    textTransform: "uppercase",
+    marginBottom: 12,
+    marginTop: 8,
+    marginLeft: 4,
+  },
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    marginBottom: 24,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.03,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  settingItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 16,
+  },
+  itemLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: "#F0F5FA",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 24,
+    marginRight: 14,
   },
-  title: {
-    fontSize: 22,
-    fontWeight: "800",
-    color: "#181C2E",
-    marginBottom: 12,
-  },
-  subtitle: {
+  itemTitle: {
     fontSize: 15,
-    color: "#A0A5BA",
-    textAlign: "center",
-    lineHeight: 22,
+    fontWeight: "600",
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#F0F5FA",
+    marginLeft: 50,
   },
 });
