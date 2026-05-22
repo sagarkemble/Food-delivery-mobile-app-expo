@@ -1,5 +1,7 @@
 # Food Delivery App
 
+**Demo Link:** [Watch Demo](https://drive.google.com/file/d/11W0NxJzV2MzF0FvTfYAAj3nb6OAUFg5B/view?usp=sharing)
+
 A React Native mobile application built with Expo, demonstrating a complete navigation flow using React Navigation (Stack, Drawer, and Bottom Tabs) for a food delivery platform.
 
 ## Features
